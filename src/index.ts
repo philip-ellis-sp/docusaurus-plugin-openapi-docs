@@ -108,9 +108,7 @@ export default function pluginOpenAPIDocs(
           docPath
         );
 
-        const sidebarSliceTemplate = template
-          ? fs.readFileSync(template).toString()
-          : `module.exports = {{{slice}}};`;
+        const sidebarSliceTemplate = `module.exports = {{{slice}}};`;
 
         const view = render(sidebarSliceTemplate, {
           slice: JSON.stringify(sidebarSlice),
@@ -162,12 +160,11 @@ info_path: {{{infoPath}}}
 {{{markdown}}}
       `;
 
-      const infoMdTemplate = template
-        ? fs.readFileSync(template).toString()
-        : `---
+      const infoMdTemplate = `---
 id: {{{id}}}
 sidebar_label: {{{title}}}
 hide_title: true
+custom_edit_url: null
 ---
 
 {{{markdown}}}
@@ -180,12 +177,11 @@ import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
 \`\`\`
       `;
 
-      const tagMdTemplate = template
-        ? fs.readFileSync(template).toString()
-        : `---
+      const tagMdTemplate = `---
 id: {{{id}}}
 title: {{{description}}}
 description: {{{description}}}
+custom_edit_url: null
 ---
 
 {{{markdown}}}
@@ -393,7 +389,7 @@ import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
         .usage("<id>")
         .arguments("<id>")
         .action(async (command, instance, args) => {
-          if (!args || command !== "gen-api-docs") {
+          if (command !== "gen-api-docs") {
             return;
           }
           const id = args[0];
@@ -427,7 +423,7 @@ import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
         .usage("<id:version>")
         .arguments("<id:version>")
         .action(async (command, instance, args) => {
-          if (!args || command !== "gen-api-docs:version") {
+          if (command !== "gen-api-docs:version") {
             return;
           }
           const id = args[0];
@@ -495,7 +491,7 @@ import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
         .usage("<id>")
         .arguments("<id>")
         .action(async (command, instance, args) => {
-          if (!args || command !== "clean-api-docs") {
+          if (command !== "clean-api-docs") {
             return;
           }
           const id = args[0];
@@ -525,7 +521,7 @@ import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
         .usage("<id:version>")
         .arguments("<id:version>")
         .action(async (command, instance, args) => {
-          if (!args || command !== "clean-api-docs:version") {
+          if (command !== "clean-api-docs:version") {
             return;
           }
           const id = args[0];
